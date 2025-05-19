@@ -7,10 +7,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovementCtrl : MonoBehaviour
 {
-    [Header("Movement")]
-    [SerializeField, Range(0f, 10f)] private float walkSpeed = 5f;
-    [SerializeField, Range(0f, 20f)] private float runSpeed = 10f;
-    [SerializeField, Range(0f, 100f)] private float jumpPower = 3f;
     [SerializeField] private bool running = false;
     private Vector2 movementInput;
     public LayerMask groundLayer;
@@ -23,15 +19,17 @@ public class PlayerMovementCtrl : MonoBehaviour
     private Vector2 mouseDelta;
     private float camXRot;
 
-  
+    private PlayerStat stat;
+
     private Rigidbody rb;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        if(rb == null)
+        stat = GetComponent<PlayerStat>();
+        if(rb == null || stat == null)
         {
-            Debug.LogWarning(this.name + ": Player Rigidbody Not Found");
+            Debug.LogWarning(this.name + ": Player Essential Component Not Found");
             this.enabled = false;
             return;
         }
@@ -50,8 +48,9 @@ public class PlayerMovementCtrl : MonoBehaviour
 
     private void Move()
     {
+        
         Vector3 dir = transform.forward * movementInput.y + transform.right * movementInput.x;
-        dir *= running ? runSpeed : walkSpeed;
+        dir *= stat.Speed;
         dir.y = rb.velocity.y;
 
         rb.velocity = dir;
@@ -85,7 +84,7 @@ public class PlayerMovementCtrl : MonoBehaviour
     {
         if(context.phase == InputActionPhase.Started && IsGrounded())
         {   //입력 시작(버튼 클릭)
-            rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);   
+            rb.AddForce(Vector2.up * stat.JumpPower, ForceMode.Impulse);   
         }
     }
 

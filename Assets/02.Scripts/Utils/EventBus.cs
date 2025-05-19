@@ -4,13 +4,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public enum GameEventType
-{
-    None,
-    PlayerHealthChanged,
-    PlayerStaminaChanged,
-    PlayerDied
-}
 public static class EventBus
 {
     // 이벤트 타입을 키로, 해당 이벤트 타입의 핸들러(delegate)를 값으로 저장하는 딕셔너리

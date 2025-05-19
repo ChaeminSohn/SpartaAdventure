@@ -17,6 +17,7 @@ public class PlayerCondition : MonoBehaviour
             Debug.LogWarning(this.name + ": Player Stat Component Not Found");
             return;
         }
+        
     }
 
     public void OnDamage(float damage)
