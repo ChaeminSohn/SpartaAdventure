@@ -29,6 +29,11 @@ public class ItemData : ScriptableObject
     public bool isStackable;
     public int maxStackSize;
 
+    [Header("소비 아이템 설정")]
+    public ItemEffectType effectType;
+    public float effectValue;
+    public float effectDuration;
+
     [SerializeField]
     private int uniqueID;
     public int UniqueID => uniqueID;
