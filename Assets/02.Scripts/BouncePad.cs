@@ -12,6 +12,10 @@ public class BouncePad : MonoBehaviour
     {
         if (((1 << collision.gameObject.layer) & playerLayer) != 0)
         {
+            if(collision.gameObject.TryGetComponent<PlayerMovementCtrl>(out PlayerMovementCtrl player))
+            {
+                player.Jump(bouncePower);
+            }
             Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
             if(rb != null)
             {

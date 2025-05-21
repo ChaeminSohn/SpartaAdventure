@@ -74,7 +74,7 @@ public class PlayerStat : MonoBehaviour
 
         CurrentHealth += amount;
         CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
-        Debug.Log($"플레이어가 {amount} 만큼의 체력을 회복했습니다.. 현재 체력 : {CurrentHealth} / {MaxHealth}");
+        Debug.Log($"플레이어가 {amount} 만큼의 체력을 회복했습니다. 현재 체력 : {CurrentHealth} / {MaxHealth}");
 
         EventBus.Raise(new PlayerHealthChangeEvent(CurrentHealth, MaxHealth));
     }
@@ -98,6 +98,17 @@ public class PlayerStat : MonoBehaviour
         }
     }
 
+    public void RecoverStamina(float amount)
+    {
+        if (amount < 0) return;
+
+        CurrentStamina += amount;
+        CurrentStamina = Mathf.Clamp(CurrentStamina, 0, MaxStamina);
+        Debug.Log($"플레이어가 {amount} 만큼의 스태미나를 회복했습니다. 현재 스태미나 : {CurrentStamina} / {MaxStamina}");
+
+        EventBus.Raise(new PlayerStaminaChangeEvent(CurrentStamina, MaxStamina));
+    }
+
     private void Die()
     {
         Debug.Log("플레이어가 사망했습니다.");
@@ -113,6 +124,7 @@ public class PlayerStat : MonoBehaviour
     {
         StartCoroutine(SpeedUpRoutine(args.speedUpValue, args.speedUpDuration));
     }
+
 
     IEnumerator SpeedUpRoutine(float value, float duration)
     {
