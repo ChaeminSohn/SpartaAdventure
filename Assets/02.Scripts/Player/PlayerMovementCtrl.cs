@@ -15,7 +15,8 @@ public class PlayerMovementCtrl : MonoBehaviour
     [SerializeField] private float minXLook;
     [SerializeField] private float maxXLook;
     [SerializeField] private float lookSensivity;
-    [SerializeField] private Camera firstPersonCamera;
+    //[SerializeField] private Camera firstPersonCamera;
+    public float currentPitch { get; private set; } = 0f;
     private Vector2 mouseDelta;
     private float camXRot;
 
@@ -27,6 +28,7 @@ public class PlayerMovementCtrl : MonoBehaviour
     private PlayerAnimationCtrl animationCtrl;
     private Rigidbody rb;
 
+    
 
     private bool isRunning = false;
     private float lastRunStaminaCostTime;
@@ -35,6 +37,7 @@ public class PlayerMovementCtrl : MonoBehaviour
     private bool wasGroundedLastFrame = true;
     private bool isBigJumpAirborne = false;
     private bool isNormalJumpAirborne = false;
+    private bool canMove = true;
 
     private Coroutine staminaRegenCoroutine;
     private Coroutine airborneCoroutine;
@@ -58,7 +61,7 @@ public class PlayerMovementCtrl : MonoBehaviour
     private float lastCheckTime;
     private void Update()
     {
-        if (Time.time < lastCheckTime + 0.1f)
+        if (Time.time < lastCheckTime + 0.2f)
         {
             return;
         }
@@ -73,6 +76,7 @@ public class PlayerMovementCtrl : MonoBehaviour
                 if (airborneCoroutine == null)
                 {
                     animationCtrl.Land();
+                    StartCoroutine(LandingRoutine());
                 }
                 isNormalJumpAirborne = false;
             }
@@ -101,19 +105,22 @@ public class PlayerMovementCtrl : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        if (canMove)
+        {
+            Move();
+        }
     }
 
     private void LateUpdate()
     {
-        Look();
+        //Look();
     }
 
     private void Move()
     {
         Vector3 dir = transform.forward * movementInput.y + transform.right * movementInput.x;
         dir *= stat.Speed;
-        if (isRunning && !IsGrounded())
+        if (isRunning && isCurrentlyGrounded)
         {
             dir *= 1.5f;
             if(Time.time > lastRunStaminaCostTime + 0.5f)
@@ -129,9 +136,12 @@ public class PlayerMovementCtrl : MonoBehaviour
 
     private void Look()
     {
+        // y축 기준으로만 회전
         camXRot += mouseDelta.y * lookSensivity;
         camXRot = Mathf.Clamp(camXRot, minXLook, maxXLook);
-        firstPersonCamera.transform.localEulerAngles = new Vector3(-camXRot, 0, 0);
+        //currentPitch += mouseDelta.y;
+        //currentPitch = Mathf.Clamp(camXRot, minXLook, maxXLook);
+        //firstPersonCamera.transform.localEulerAngles = new Vector3(-camXRot, 0, 0);
         transform.eulerAngles += new Vector3(0, mouseDelta.x * lookSensivity, 0);
     }
 
@@ -254,5 +264,12 @@ public class PlayerMovementCtrl : MonoBehaviour
         animationCtrl.Land();
         isBigJumpAirborne = false;
         airborneCoroutine = null;
+    }
+
+    IEnumerator LandingRoutine()
+    {
+        canMove = false;
+        yield return new WaitForSeconds(2.0f);
+        canMove = true;
     }
 }

@@ -1046,7 +1046,6 @@ MonoBehaviour:
   minXLook: -80
   maxXLook: 80
   lookSensivity: 0.1
-  firstPersonCamera: {fileID: 963194227}
   runStaminaSec: 3
   jumpStaminaCost: 20
 --- !u!114 &294695249
@@ -1094,6 +1093,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 294695248}
         m_TargetAssemblyTypeName: PlayerMovementCtrl, Assembly-CSharp
+        m_MethodName: OnLook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 963194229}
+        m_TargetAssemblyTypeName: CameraCtrl, Assembly-CSharp
         m_MethodName: OnLook
         m_Mode: 0
         m_Arguments:
@@ -1154,6 +1165,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 45266ad4-1636-48c4-abba-098c506c876f
     m_ActionName: Player/Interact[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 963194229}
+        m_TargetAssemblyTypeName: CameraCtrl, Assembly-CSharp
+        m_MethodName: OnViewChange
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6c60db53-5b09-4328-bc9f-c10e1f9d38cb
+    m_ActionName: Player/ViewChange[/Keyboard/c]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1188,7 +1215,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkRate: 0.05
-  maxCheckDistance: 3
+  minCheckDistance: 3
+  maxCheckDistance: 20
   layerMask:
     serializedVersion: 2
     m_Bits: 128
@@ -2137,6 +2165,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2212,12 +2241,36 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.54, z: 0.08}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1386734100}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e314f2c72ea67449aced3859419a347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseSensitivity: 20
+  minPitch: -80
+  maxPitch: 80
+  firstPersonLocalPosition: {x: 0, y: 0, z: 0}
+  firstPersonLayer:
+    serializedVersion: 2
+    m_Bits: 183
+  thirdPersonTargetOffset: {x: 0, y: 1.2, z: 0}
+  thirdPersonDistance: 3.5
+  thirdPersonLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1001 &1017911676
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2677,7 +2730,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1386734100}
   m_Layer: 6
-  m_Name: Cameras
+  m_Name: CameraContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2692,7 +2745,7 @@ Transform:
   m_GameObject: {fileID: 1386734099}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
