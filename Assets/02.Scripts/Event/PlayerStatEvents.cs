@@ -12,6 +12,16 @@ public class PlayerHealEvent
     }
 }
 
+public class PlayerStaminaRestoreEvent
+{
+    public float staminaValue;
+
+    public PlayerStaminaRestoreEvent(float value) 
+    {
+        staminaValue = value;
+    }
+}
+
 public class PlayerSpeedUpEvent
 {
     public float speedUpValue;

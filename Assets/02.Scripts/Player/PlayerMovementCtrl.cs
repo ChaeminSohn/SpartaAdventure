@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovementCtrl : MonoBehaviour
 {
-    [SerializeField] private bool running = false;
     private Vector2 movementInput;
     public LayerMask groundLayer;
 
@@ -24,6 +23,9 @@ public class PlayerMovementCtrl : MonoBehaviour
     [SerializeField] private float runStaminaSec = 3f;
     [SerializeField] private float jumpStaminaCost = 20f;
 
+    [SerializeField] private LayerMask platformLayerMask;
+    private Transform currentlyAttachedPlatform;
+
     private PlayerStat stat;
     private PlayerAnimationCtrl animationCtrl;
     private Rigidbody rb;
@@ -35,7 +37,6 @@ public class PlayerMovementCtrl : MonoBehaviour
 
     private bool isCurrentlyGrounded = true;
     private bool wasGroundedLastFrame = true;
-    private bool isBigJumpAirborne = false;
     private bool isNormalJumpAirborne = false;
     private bool canMove = true;
 
@@ -61,7 +62,7 @@ public class PlayerMovementCtrl : MonoBehaviour
     private float lastCheckTime;
     private void Update()
     {
-        if (Time.time < lastCheckTime + 0.2f)
+        if (Time.time < lastCheckTime + 0.1f)
         {
             return;
         }
@@ -73,9 +74,8 @@ public class PlayerMovementCtrl : MonoBehaviour
         {
             if(!wasGroundedLastFrame)   // 막 착지했을 경우
             {   
-                if (airborneCoroutine == null)
+                if (airborneCoroutine == null && !isNormalJumpAirborne)
                 {
-                    animationCtrl.Land();
                     StartCoroutine(LandingRoutine());
                 }
                 isNormalJumpAirborne = false;
@@ -87,7 +87,6 @@ public class PlayerMovementCtrl : MonoBehaviour
             {
                 if (!isNormalJumpAirborne)
                 {
-                    Debug.Log("???");
                     animationCtrl.Fall();
                 }
             }
@@ -221,14 +220,41 @@ public class PlayerMovementCtrl : MonoBehaviour
             new Ray(transform.position + (-transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down),
         };
 
-        foreach(Ray ray in rays)
+        RaycastHit hit;
+        foreach (Ray ray in rays)
         {
-            if (Physics.Raycast(ray, 0.1f, groundLayer))
+            if (Physics.Raycast(ray, out hit, 0.1f, groundLayer))
             {
+                if (Physics.Raycast(ray, out hit, 0.1f, platformLayerMask))
+                {   //플랫폼에 닿았을 경우
+                    //움직이는 발판에 올라있을 경우, 같이 움직이기 위해 부모 설정
+                    if(currentlyAttachedPlatform != hit.transform)
+                    {
+                        transform.SetParent(hit.transform);
+                        currentlyAttachedPlatform = hit.transform;
+                        Debug.Log("플레이어 발판에 부모 설정됨 " + hit.transform.name);
+                    }
+                }
+                else if(currentlyAttachedPlatform != null)
+                {   //플랫폼에서 내려왔을 경우, 부모 해제
+                    transform.SetParent(null);
+                    Debug.Log("플레이어 발판에서 부모 해제됨: " + currentlyAttachedPlatform.name);
+                    currentlyAttachedPlatform = null;
+
+                }
                 return true;
             }
+            else
+            {
+                if (currentlyAttachedPlatform != null)
+                {   //플랫폼에서 내려왔을 경우, 부모 해제
+                    transform.SetParent(null);
+                    Debug.Log("플레이어 발판에서 부모 해제됨: " + currentlyAttachedPlatform.name);
+                    currentlyAttachedPlatform = null;
+                }
+            }
         }
-        return false;
+            return false;
     }
 
     IEnumerator StaminaGenRoutine()
@@ -249,25 +275,24 @@ public class PlayerMovementCtrl : MonoBehaviour
     {
         Debug.Log("Start Normal Jump Coroutine");
         isNormalJumpAirborne = true;
-        yield return new WaitForSeconds(.8f);
+        yield return new WaitForSeconds(1.0f);
         isNormalJumpAirborne = false;
     }
     IEnumerator BigJumpAirborneRoutine()
     {
         animationCtrl.Fall();
-        isBigJumpAirborne = true;
         yield return new WaitForFixedUpdate();
         while (!IsGrounded())
         {
             yield return new WaitForEndOfFrame();
         }
         animationCtrl.Land();
-        isBigJumpAirborne = false;
         airborneCoroutine = null;
     }
 
     IEnumerator LandingRoutine()
     {
+        animationCtrl.Land();
         canMove = false;
         yield return new WaitForSeconds(2.0f);
         canMove = true;

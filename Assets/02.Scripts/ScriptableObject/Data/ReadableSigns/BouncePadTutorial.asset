@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b8dafc93bfdd9c4cb9c76f54790c34b, type: 3}
-  m_Name: ReadableSign
+  m_Name: BouncePadTutorial
   m_EditorClassIdentifier: 
   type: 3
   displayName: "\uD45C\uC9C0\uD310"
-  description: "\uC548\uB155\uD558\uC138\uC694!"
+  description: "\uAC80\uC740\uC0C9 \uBC1C\uD310\uC5D0 \uC62C\uB77C\uC11C\uBA74 \uB192\uAC8C
+    \uC810\uD504\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4!"
   maxHealth: 0
   maxStamina: 0
   speed: 0

@@ -29,6 +29,9 @@ public class UsableObject : MonoBehaviour, IInteractable
             case ItemEffectType.Heal:
                 EventBus.Raise(new PlayerHealEvent(ItemData.effectValue));
                 break;
+            case ItemEffectType.StaminaRestore:
+                EventBus.Raise(new PlayerStaminaRestoreEvent(ItemData.effectValue));
+                break;
             case ItemEffectType.SpeedBoost:
                 EventBus.Raise(new PlayerSpeedUpEvent(ItemData.effectValue, itemDataSO.effectDuration));
                 break;

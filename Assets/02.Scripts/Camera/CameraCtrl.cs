@@ -11,14 +11,12 @@ public class CameraCtrl : MonoBehaviour
     [SerializeField] private float maxPitch = 80f;  // 최대 상하 각도
 
     [Header("1인칭 시점 설정")]
-    [Tooltip("firstPersonMountPoint로부터의 로컬 위치 오프셋. MountPoint가 머리라면 (0,0,0)에 가깝게 설정합니다.")]
     [SerializeField] private Vector3 firstPersonLocalPosition = new Vector3(0f, 0f, 0f); // MountPoint 기준 위치
     [SerializeField] private LayerMask firstPersonLayer;
     private Transform firstPersonParent;
     
 
     [Header("3인칭 시점 설정")]
-    [Tooltip("플레이어의 어느 지점을 기준으로 카메라가 위치할지 (플레이어 로컬 좌표 오프셋)")]
     [SerializeField] private Vector3 thirdPersonTargetOffset = new Vector3(0f, 1.2f, 0f);
     [SerializeField] private float thirdPersonDistance = 3.5f;
     [SerializeField] private LayerMask thirdPersonLayer;
@@ -35,7 +33,7 @@ public class CameraCtrl : MonoBehaviour
     {
         playerBody = transform.root;
         firstPersonParent = transform.parent;
-        cam = GetComponent<Camera>(); // 이 스크립트는 카메라 오브젝트에 있어야 합니다.
+        cam = GetComponent<Camera>(); 
 
         if (playerBody == null)
         {
@@ -111,7 +109,6 @@ public class CameraCtrl : MonoBehaviour
     }
     public void OnViewChange(InputAction.CallbackContext context)
     {
-
         isFirstPerson = !isFirstPerson;
         EventBus.Raise(new PlayerViewChangeEvent(isFirstPerson));
         cam.cullingMask = isFirstPerson ? firstPersonLayer : thirdPersonLayer;

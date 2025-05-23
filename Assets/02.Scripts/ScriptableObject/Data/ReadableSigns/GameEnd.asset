@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8dafc93bfdd9c4cb9c76f54790c34b, type: 3}
+  m_Name: GameEnd
+  m_EditorClassIdentifier: 
+  type: 3
+  displayName: "\uD45C\uC9C0\uD310"
+  description: "\uC81C\uAC00 \uB9CC\uB4E0 \uAC8C\uC784\uC740 \uC5EC\uAE30\uAE4C\uC9C0
+    \uC785\uB2C8\uB2E4. \uD50C\uB808\uC774\uD574\uC8FC\uC154\uC11C \uAC10\uC0AC\uD569\uB2C8\uB2E4!"
+  maxHealth: 0
+  maxStamina: 0
+  speed: 0
+  jumpPower: 0
+  isStackable: 0
+  maxStackSize: 0
+  effectType: 0
+  effectValue: 0
+  effectDuration: 0
+  uniqueID: 0

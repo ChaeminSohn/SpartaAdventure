@@ -15,11 +15,11 @@ public class PlayerInteraction : MonoBehaviour
     public GameObject curInteractableObject;
     private IInteractable curInteractable;
 
-    private Camera camera;
+    private Camera cam;
 
     private void Start()
     {
-        camera = Camera.main;
+        cam = Camera.main;
         checkDistance = minCheckDistance;
     }
 
@@ -39,7 +39,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             lastCheckTime = Time.time;
 
-            Ray ray = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+            Ray ray = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
             if(Physics.Raycast(ray, out RaycastHit hit, checkDistance, layerMask))
             {
                 if(hit.collider.gameObject != curInteractableObject)
@@ -76,19 +76,4 @@ public class PlayerInteraction : MonoBehaviour
     {
         checkDistance = args.isFirstPersonView ? minCheckDistance : maxCheckDistance;
     }
-
-    //private void OnDrawGizmos()
-    //{
-    //    Vector3 rayOrigin = transform.position +
-    //                      transform.right * rayOriginLocalOffset.x +
-    //                      pbt.up * rayOriginLocalOffset.y +
-    //                      pbt.forward * rayOriginLocalOffset.z;
-    //    Vector3 rayDirection = pbt.forward;
-
-    //    // 기즈모 색상 설정
-    //    Gizmos.color = Color.yellow; // 원하는 색상으로 변경 가능
-
-    //    // 레이 시작점에서 (방향 * 최대 거리) 만큼의 선을 그림
-    //    Gizmos.DrawRay(rayOrigin, rayDirection * maxCheckDistance);
-    //}
 }

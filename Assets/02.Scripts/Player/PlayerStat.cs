@@ -19,7 +19,7 @@ public class PlayerStat : MonoBehaviour
     [SerializeField, Range(0, 200f)] private float baseStamina = 100f;
     [SerializeField, Range(0f, 5f)] private float baseSpeed = 5f;
     [SerializeField, Range(0f, 100f)] private float baseJumpPower = 80f;
-    
+
     public float CurrentHealth { get; private set; }
     public float MaxHealth { get; private set; }
     public float CurrentStamina { get; private set; }
@@ -35,20 +35,20 @@ public class PlayerStat : MonoBehaviour
         CurrentStamina = MaxStamina;
         Speed = baseSpeed;
         JumpPower = baseJumpPower;
-
-        StartCoroutine(TestCoroutine());
     }
 
     private void OnEnable()
     {
         EventBus.Subscribe<PlayerHealEvent>(PlayerHealEventHandler);
         EventBus.Subscribe<PlayerSpeedUpEvent>(PlayerSpeedUpEventHandler);
+        EventBus.Subscribe<PlayerStaminaRestoreEvent>(PlayerStaminaRestoreHandler);
     }
 
     private void OnDisable()
     {
         EventBus.UnSubscribe<PlayerHealEvent>(PlayerHealEventHandler);
         EventBus.UnSubscribe<PlayerSpeedUpEvent>(PlayerSpeedUpEventHandler);
+        EventBus.UnSubscribe<PlayerStaminaRestoreEvent>(PlayerStaminaRestoreHandler);
     }
 
     public void GetDamage(float amount)
@@ -85,7 +85,7 @@ public class PlayerStat : MonoBehaviour
     {
         if (amount <= 0) return false;
 
-        if(CurrentStamina >= amount)
+        if (CurrentStamina >= amount)
         {
             CurrentStamina -= amount;
             //이벤트 실행
@@ -120,11 +120,18 @@ public class PlayerStat : MonoBehaviour
         Heal(args.healValue);
     }
 
+    private void PlayerStaminaRestoreHandler(PlayerStaminaRestoreEvent args)
+    {
+        RecoverStamina(args.staminaValue);
+    }
+
+
     private void PlayerSpeedUpEventHandler(PlayerSpeedUpEvent args)
     {
         StartCoroutine(SpeedUpRoutine(args.speedUpValue, args.speedUpDuration));
     }
 
+  
 
     IEnumerator SpeedUpRoutine(float value, float duration)
     {
@@ -133,14 +140,5 @@ public class PlayerStat : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         Speed -= value;
-    }
-
-   IEnumerator TestCoroutine()
-    {
-        while (true)
-        {
-            GetDamage(1f);
-            yield return new WaitForSeconds(1f);
-        }
     }
 }
