@@ -33,3 +33,15 @@ public class PlayerSpeedUpEvent
         speedUpDuration = duration;
     }
 }
+
+public class PlayerJumpBoostEvent 
+{ 
+    public float jumpBoostValue;   
+    public float jumpBoostDuration;
+
+    public PlayerJumpBoostEvent(float value, float duration)
+    {
+        jumpBoostValue = value;
+        jumpBoostDuration = duration;
+    }
+}

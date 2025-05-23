@@ -35,6 +35,9 @@ public class UsableObject : MonoBehaviour, IInteractable
             case ItemEffectType.SpeedBoost:
                 EventBus.Raise(new PlayerSpeedUpEvent(ItemData.effectValue, itemDataSO.effectDuration));
                 break;
+            case ItemEffectType.JumpBoost:
+                EventBus.Raise(new PlayerJumpBoostEvent(ItemData.effectValue, ItemData.effectDuration));
+                break;
             default:
                 break;
         }

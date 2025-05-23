@@ -42,13 +42,14 @@ public class PlayerStat : MonoBehaviour
         EventBus.Subscribe<PlayerHealEvent>(PlayerHealEventHandler);
         EventBus.Subscribe<PlayerSpeedUpEvent>(PlayerSpeedUpEventHandler);
         EventBus.Subscribe<PlayerStaminaRestoreEvent>(PlayerStaminaRestoreHandler);
+        EventBus.Subscribe<PlayerJumpBoostEvent>(PlayerJumpBoostHandler);
     }
-
     private void OnDisable()
     {
         EventBus.UnSubscribe<PlayerHealEvent>(PlayerHealEventHandler);
         EventBus.UnSubscribe<PlayerSpeedUpEvent>(PlayerSpeedUpEventHandler);
         EventBus.UnSubscribe<PlayerStaminaRestoreEvent>(PlayerStaminaRestoreHandler);
+        EventBus.UnSubscribe<PlayerJumpBoostEvent>(PlayerJumpBoostHandler);
     }
 
     public void GetDamage(float amount)
@@ -131,7 +132,10 @@ public class PlayerStat : MonoBehaviour
         StartCoroutine(SpeedUpRoutine(args.speedUpValue, args.speedUpDuration));
     }
 
-  
+    private void PlayerJumpBoostHandler(PlayerJumpBoostEvent args)
+    {
+        StartCoroutine(JumpBoostRoutine(args.jumpBoostValue, args.jumpBoostDuration));
+    }
 
     IEnumerator SpeedUpRoutine(float value, float duration)
     {
@@ -140,5 +144,14 @@ public class PlayerStat : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         Speed -= value;
+    } 
+    
+    IEnumerator JumpBoostRoutine(float value, float duration)
+    {
+        JumpPower += value;
+
+        yield return new WaitForSeconds(duration);
+
+        JumpPower -= value;
     }
 }

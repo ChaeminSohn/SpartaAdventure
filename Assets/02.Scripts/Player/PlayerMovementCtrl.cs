@@ -275,7 +275,7 @@ public class PlayerMovementCtrl : MonoBehaviour
     {
         Debug.Log("Start Normal Jump Coroutine");
         isNormalJumpAirborne = true;
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(2.0f);
         isNormalJumpAirborne = false;
     }
     IEnumerator BigJumpAirborneRoutine()

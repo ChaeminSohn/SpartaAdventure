@@ -3684,6 +3684,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StaminaRestoreApple
       objectReference: {fileID: 0}
+    - target: {fileID: 2833756410871233321, guid: 971e78403ac0857478e61aeaf9bf5bdb, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3461222609030885816, guid: 971e78403ac0857478e61aeaf9bf5bdb, type: 3}
       propertyPath: itemDataSO
       value: 
@@ -3785,6 +3789,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7548289978016198024, guid: bb2f8dc7280cd7e4797519aa349a371b, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8025786575091422165, guid: bb2f8dc7280cd7e4797519aa349a371b, type: 3}
       propertyPath: m_Name
       value: SpeedBoostMushroom
@@ -3866,6 +3874,10 @@ PrefabInstance:
     - target: {fileID: 111749044474897885, guid: 4ede77101a9b00644b194a40122c05cf, type: 3}
       propertyPath: m_Name
       value: HealMushroom
+      objectReference: {fileID: 0}
+    - target: {fileID: 7730656695557069687, guid: 4ede77101a9b00644b194a40122c05cf, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8166681222327894138, guid: 4ede77101a9b00644b194a40122c05cf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4087,6 +4099,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86e4b64e3f7693a48a910bfc17d4d50d, type: 3}
+--- !u!1001 &8629594612049160379
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 983244681067092908, guid: 32356c61dfdbaae4cbc291ec513a3727, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 14.979
+      objectReference: {fileID: 0}
+    - target: {fileID: 983244681067092908, guid: 32356c61dfdbaae4cbc291ec513a3727, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.211
+      objectReference: {fileID: 0}
+    - target: {fileID: 983244681067092908, guid: 32356c61dfdbaae4cbc291ec513a3727, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -9.219
+      objectReference: {fileID: 0}
+    - target: {fileID: 983244681067092908, guid: 32356c61dfdbaae4cbc291ec513a3727, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 983244681067092908, guid: 32356c61dfdbaae4cbc291ec513a3727, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 983244681067092908, guid: 32356c61dfdbaae4cbc291ec513a3727, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 983244681067092908, guid: 32356c61dfdbaae4cbc291ec513a3727, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 983244681067092908, guid: 32356c61dfdbaae4cbc291ec513a3727, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 983244681067092908, guid: 32356c61dfdbaae4cbc291ec513a3727, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 983244681067092908, guid: 32356c61dfdbaae4cbc291ec513a3727, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4667536937393313416, guid: 32356c61dfdbaae4cbc291ec513a3727, type: 3}
+      propertyPath: m_Name
+      value: JumpBoostCookie
+      objectReference: {fileID: 0}
+    - target: {fileID: 8563001369075373997, guid: 32356c61dfdbaae4cbc291ec513a3727, type: 3}
+      propertyPath: itemDataSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 3b40a26e506078349bd3d064651c5c51, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 32356c61dfdbaae4cbc291ec513a3727, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -4097,6 +4170,7 @@ SceneRoots:
   - {fileID: 1916075591}
   - {fileID: 1244889070}
   - {fileID: 4433784256790328545}
+  - {fileID: 8629594612049160379}
   - {fileID: 1322765089078054912}
   - {fileID: 102560429781019558}
   - {fileID: 1465221107}
